@@ -1,9 +1,7 @@
-import { N8NDocumentationMCPServer } from '../src/mcp/server';
-import path from 'path';
+import { N8NDocumentationMCPServer } from '../mcp/server';
 
 async function testToolsDocumentation() {
-  const dbPath = path.join(__dirname, '..', 'nodes.db');
-  const server = new N8NDocumentationMCPServer(dbPath);
+  const server = new N8NDocumentationMCPServer();
   
   console.log('=== Testing tools_documentation tool ===\n');
   

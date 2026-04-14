@@ -203,7 +203,7 @@ jobs:
           node test-import.mjs
 
       - name: Generate dependency report
-        if: always()
+        if: success()
         working-directory: /tmp/fresh-install-test
         run: |
           echo "=== Full Dependency Tree ===" > dependency-report.txt

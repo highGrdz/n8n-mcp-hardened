@@ -5,6 +5,7 @@
  * Covers successful retrieval and error handling.
  */
 
+import { describeIfN8nApi } from '../utils/skip-helpers';
 import { describe, it, expect, beforeEach, afterEach, afterAll } from 'vitest';
 import { createTestContext, TestContext, createTestWorkflowName } from '../utils/test-context';
 import { getTestN8nClient } from '../utils/n8n-client';
@@ -16,7 +17,7 @@ import { createMcpContext } from '../utils/mcp-context';
 import { InstanceContext } from '../../../../src/types/instance-context';
 import { handleGetWorkflow } from '../../../../src/mcp/handlers-n8n-manager';
 
-describe('Integration: handleGetWorkflow', () => {
+describeIfN8nApi('Integration: handleGetWorkflow', () => {
   let context: TestContext;
   let client: N8nApiClient;
   let mcpContext: InstanceContext;

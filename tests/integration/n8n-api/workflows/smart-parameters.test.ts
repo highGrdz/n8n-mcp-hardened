@@ -14,6 +14,7 @@
  * - Bug 2: Zod schema stripping branch/case parameters
  */
 
+import { describeIfN8nApi } from '../utils/skip-helpers';
 import { describe, it, expect, beforeEach, afterEach, afterAll } from 'vitest';
 import { createTestContext, TestContext, createTestWorkflowName } from '../utils/test-context';
 import { getTestN8nClient } from '../utils/n8n-client';
@@ -25,7 +26,7 @@ import { NodeRepository } from '../../../../src/database/node-repository';
 import { handleUpdatePartialWorkflow } from '../../../../src/mcp/handlers-workflow-diff';
 import { Workflow } from '../../../../src/types/n8n-api';
 
-describe('Integration: Smart Parameters with Real n8n API', () => {
+describeIfN8nApi('Integration: Smart Parameters with Real n8n API', () => {
   let context: TestContext;
   let client: N8nApiClient;
   let mcpContext: InstanceContext;

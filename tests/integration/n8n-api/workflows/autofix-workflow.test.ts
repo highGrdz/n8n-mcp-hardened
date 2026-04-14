@@ -5,6 +5,7 @@
  * Covers fix types, confidence levels, preview/apply modes, and error handling.
  */
 
+import { describeIfN8nApi } from '../utils/skip-helpers';
 import { describe, it, expect, beforeEach, afterEach, afterAll } from 'vitest';
 import { createTestContext, TestContext, createTestWorkflowName } from '../utils/test-context';
 import { getTestN8nClient } from '../utils/n8n-client';
@@ -17,7 +18,7 @@ import { getNodeRepository, closeNodeRepository } from '../utils/node-repository
 import { NodeRepository } from '../../../../src/database/node-repository';
 import { AutofixResponse } from '../types/mcp-responses';
 
-describe('Integration: handleAutofixWorkflow', () => {
+describeIfN8nApi('Integration: handleAutofixWorkflow', () => {
   let context: TestContext;
   let client: N8nApiClient;
   let mcpContext: InstanceContext;

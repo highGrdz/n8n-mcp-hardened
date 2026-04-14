@@ -420,8 +420,18 @@ export class N8NDocumentationMCPServer {
     // Parse SQL statements properly (handles BEGIN...END blocks in triggers)
     const statements = this.parseSQLStatements(schema);
 
+    // Check if FTS5 is supported by the current adapter
+    const hasFTS5 = this.db.checkFTS5Support();
+
     for (const statement of statements) {
       if (statement.trim()) {
+        const isFTSStatement = statement.toLowerCase().includes('fts5') || statement.toLowerCase().includes('nodes_fts');
+        
+        if (!hasFTS5 && isFTSStatement) {
+          logger.debug('Skipping FTS5 statement because adapter does not support FTS5 module.');
+          continue;
+        }
+
         try {
           this.db.exec(statement);
         } catch (error) {

@@ -5,13 +5,14 @@
  * Covers all HTTP methods, request data, headers, and error handling.
  */
 
+import { describeIfN8nApi } from '../utils/skip-helpers';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { createMcpContext } from '../utils/mcp-context';
 import { InstanceContext } from '../../../../src/types/instance-context';
 import { handleTriggerWebhookWorkflow } from '../../../../src/mcp/handlers-n8n-manager';
 import { getN8nCredentials } from '../utils/credentials';
 
-describe('Integration: handleTriggerWebhookWorkflow', () => {
+describeIfN8nApi('Integration: handleTriggerWebhookWorkflow', () => {
   let mcpContext: InstanceContext;
   let webhookUrls: {
     get: string;

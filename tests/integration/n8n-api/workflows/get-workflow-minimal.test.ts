@@ -5,6 +5,7 @@
  * Returns only ID, name, active status, and tags for fast listing operations.
  */
 
+import { describeIfN8nApi } from '../utils/skip-helpers';
 import { describe, it, expect, beforeEach, afterEach, afterAll } from 'vitest';
 import { createTestContext, TestContext, createTestWorkflowName } from '../utils/test-context';
 import { getTestN8nClient } from '../utils/n8n-client';
@@ -15,7 +16,7 @@ import { createMcpContext } from '../utils/mcp-context';
 import { InstanceContext } from '../../../../src/types/instance-context';
 import { handleGetWorkflowMinimal } from '../../../../src/mcp/handlers-n8n-manager';
 
-describe('Integration: handleGetWorkflowMinimal', () => {
+describeIfN8nApi('Integration: handleGetWorkflowMinimal', () => {
   let context: TestContext;
   let client: N8nApiClient;
   let mcpContext: InstanceContext;

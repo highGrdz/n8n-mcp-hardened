@@ -5,13 +5,14 @@
  * Covers connectivity verification and feature availability.
  */
 
+import { describeIfN8nApi } from '../utils/skip-helpers';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { createMcpContext } from '../utils/mcp-context';
 import { InstanceContext } from '../../../../src/types/instance-context';
 import { handleHealthCheck } from '../../../../src/mcp/handlers-n8n-manager';
 import { HealthCheckResponse } from '../utils/response-types';
 
-describe('Integration: handleHealthCheck', () => {
+describeIfN8nApi('Integration: handleHealthCheck', () => {
   let mcpContext: InstanceContext;
 
   beforeEach(() => {

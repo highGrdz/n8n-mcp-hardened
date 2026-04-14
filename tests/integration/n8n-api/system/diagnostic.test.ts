@@ -5,13 +5,14 @@
  * Covers environment checks, API status, and verbose mode.
  */
 
+import { describeIfN8nApi } from '../utils/skip-helpers';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { createMcpContext } from '../utils/mcp-context';
 import { InstanceContext } from '../../../../src/types/instance-context';
 import { handleDiagnostic } from '../../../../src/mcp/handlers-n8n-manager';
 import { DiagnosticResponse } from '../utils/response-types';
 
-describe('Integration: handleDiagnostic', () => {
+describeIfN8nApi('Integration: handleDiagnostic', () => {
   let mcpContext: InstanceContext;
 
   beforeEach(() => {

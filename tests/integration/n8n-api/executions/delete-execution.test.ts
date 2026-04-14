@@ -5,13 +5,14 @@
  * Covers successful deletion, error handling, and cleanup verification.
  */
 
+import { describeIfN8nApi } from '../utils/skip-helpers';
 import { describe, it, expect, beforeEach, beforeAll } from 'vitest';
 import { createMcpContext } from '../utils/mcp-context';
 import { InstanceContext } from '../../../../src/types/instance-context';
 import { handleDeleteExecution, handleTriggerWebhookWorkflow, handleGetExecution } from '../../../../src/mcp/handlers-n8n-manager';
 import { getN8nCredentials } from '../utils/credentials';
 
-describe('Integration: handleDeleteExecution', () => {
+describeIfN8nApi('Integration: handleDeleteExecution', () => {
   let mcpContext: InstanceContext;
   let webhookUrl: string;
 

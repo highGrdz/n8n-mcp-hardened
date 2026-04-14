@@ -5,6 +5,7 @@
  * Covers validation profiles, validation types, and error detection.
  */
 
+import { describeIfN8nApi } from '../utils/skip-helpers';
 import { describe, it, expect, beforeEach, afterEach, afterAll } from 'vitest';
 import { createTestContext, TestContext, createTestWorkflowName } from '../utils/test-context';
 import { getTestN8nClient } from '../utils/n8n-client';
@@ -18,7 +19,7 @@ import { getNodeRepository, closeNodeRepository } from '../utils/node-repository
 import { NodeRepository } from '../../../../src/database/node-repository';
 import { ValidationResponse } from '../types/mcp-responses';
 
-describe('Integration: handleValidateWorkflow', () => {
+describeIfN8nApi('Integration: handleValidateWorkflow', () => {
   let context: TestContext;
   let client: N8nApiClient;
   let mcpContext: InstanceContext;

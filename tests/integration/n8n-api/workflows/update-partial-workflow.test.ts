@@ -6,6 +6,7 @@
  * and metadata operations (4).
  */
 
+import { describeIfN8nApi } from '../utils/skip-helpers';
 import { describe, it, expect, beforeEach, afterEach, afterAll } from 'vitest';
 import { createTestContext, TestContext, createTestWorkflowName } from '../utils/test-context';
 import { getTestN8nClient } from '../utils/n8n-client';
@@ -17,7 +18,7 @@ import { InstanceContext } from '../../../../src/types/instance-context';
 import { NodeRepository } from '../../../../src/database/node-repository';
 import { handleUpdatePartialWorkflow } from '../../../../src/mcp/handlers-workflow-diff';
 
-describe('Integration: handleUpdatePartialWorkflow', () => {
+describeIfN8nApi('Integration: handleUpdatePartialWorkflow', () => {
   let context: TestContext;
   let client: N8nApiClient;
   let mcpContext: InstanceContext;

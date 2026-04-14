@@ -5,13 +5,14 @@
  * Covers all retrieval modes, filtering options, and error handling.
  */
 
+import { describeIfN8nApi } from '../utils/skip-helpers';
 import { describe, it, expect, beforeAll } from 'vitest';
 import { createMcpContext } from '../utils/mcp-context';
 import { InstanceContext } from '../../../../src/types/instance-context';
 import { handleGetExecution, handleTriggerWebhookWorkflow } from '../../../../src/mcp/handlers-n8n-manager';
 import { getN8nCredentials } from '../utils/credentials';
 
-describe('Integration: handleGetExecution', () => {
+describeIfN8nApi('Integration: handleGetExecution', () => {
   let mcpContext: InstanceContext;
   let executionId: string;
   let webhookUrl: string;

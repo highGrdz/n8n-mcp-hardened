@@ -36,14 +36,37 @@ n8n-MCP serves as a bridge between n8n's workflow automation platform and AI mod
 
 ## Important Safety Warning
 
-**NEVER edit your production workflows directly with AI!** Always:
-- Make a copy of your workflow before using AI tools
-- Test in development environment first
-- Export backups of important workflows
-- Validate changes before deploying to production
+**Hardened Security & Deployment (DOE Framework)**
 
-AI results can be unpredictable. Protect your work!
+Esta versão do n8n-mcp foi otimizada para ambientes de alta segurança e produção Zero-Trust.
 
+**Otimizações Implementadas**
+
+Validação de Runtime (Fail-Fast): Implementada camada estrita de validação com Zod. Inputs malformados ou alucinações da LLM são bloqueados na borda, protegendo a integridade do seu n8n.
+Containerização Distroless: Imagem de produção baseada em gcr.io/distroless/nodejs22-debian12.
+Sem shell (sh, bash) para prevenir ataques de execução arbitrária.
+Privilégio mínimo: Execução obrigatória como nonroot.
+Imutabilidade: O artefato foi construído para ser lido apenas como sistema de arquivos, ideal para ambientes serverless ou orquestradores (como o Antigravity).
+
+**Deploy "Antigravity-Ready"**
+
+Além dos métodos originais, você pode usar a imagem blindada:
+code
+Bash
+
+# Exemplo de build manual
+
+docker build -t n8n-mcp-hardened .
+
+# Rodando com privilégios restritos
+
+docker run -d \
+  -e N8N_URL="https://sua-instancia.com" \
+  -e N8N_API_KEY="sua-chave" \
+  --cap-drop=ALL \
+  --read-only \
+  n8n-mcp-hardened
+  
 ## Quick Start
 
 **The fastest way to try n8n-MCP** - no installation, no configuration:

@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Instala dependências com lockfile estrito
-RUN npm ci
+RUN npm install -g npm@latest && npm ci
 
 # Copia o resto do código
 COPY . .

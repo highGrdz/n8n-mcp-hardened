@@ -43,8 +43,7 @@ jobs:
         
       - name: Build package
         run: |
-          npm install -g npm@latest
-          npm ci
+          npm install -g npm@latest && npm ci
           npm run build
 
       - name: Pack package for testing
@@ -223,3 +222,4 @@ jobs:
           name: dependency-report-${{ github.run_number }}
           path: /tmp/fresh-install-test/dependency-report.txt
           retention-days: 30
+

@@ -50,7 +50,7 @@ jobs:
           cache: 'npm'
       
       - name: Install dependencies
-        run: npm install -g npm@latest`n          npm ci
+        run: npm install -g npm@latest && npm ci
       
       # Verify test environment setup
       - name: Verify test environment
@@ -259,3 +259,4 @@ jobs:
           reporter: java-junit
           fail-on-error: false
           fail-on-empty: false
+

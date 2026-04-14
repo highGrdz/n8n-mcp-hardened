@@ -41,9 +41,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: Build package
+            - name: Build package
         run: |
-          npm install -g npm@latest`n          npm ci
+          npm install -g npm@latest
+          npm ci
           npm run build
 
       - name: Pack package for testing

@@ -44,7 +44,7 @@ concurrency:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ghcr.io/highGrdz/n8n-mcp-hardened:latest
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build:

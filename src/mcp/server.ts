@@ -387,9 +387,35 @@ export class N8NDocumentationMCPServer {
   private async initializeInMemorySchema(): Promise<void> {
     if (!this.db) return;
 
-    // Read and execute schema
-    const schemaPath = path.join(__dirname, '../../src/database/schema.sql');
-    const schema = await fs.readFile(schemaPath, 'utf-8');
+    // Try multiple paths for schema.sql to support both:
+    // - Development: __dirname = src/mcp/ → ../../src/database/schema.sql
+    // - Compiled/CI: __dirname = build/mcp/ → ../database/schema.sql
+    // - Fallback: process.cwd()/src/database/schema.sql
+    const possiblePaths = [
+      path.join(__dirname, '../../src/database/schema.sql'),  // dev (src/mcp/)
+      path.join(__dirname, '../database/schema.sql'),          // compiled (build/mcp/)
+      path.join(process.cwd(), 'src/database/schema.sql'),    // cwd fallback
+    ];
+
+    let schema: string | null = null;
+    let usedPath: string | null = null;
+
+    for (const schemaPath of possiblePaths) {
+      try {
+        schema = await fs.readFile(schemaPath, 'utf-8');
+        usedPath = schemaPath;
+        logger.debug(`Found schema.sql at: ${schemaPath}`);
+        break;
+      } catch {
+        // Try next path
+        continue;
+      }
+    }
+
+    if (!schema || !usedPath) {
+      const triedPaths = possiblePaths.join(', ');
+      throw new Error(`schema.sql not found in any of: ${triedPaths}`);
+    }
 
     // Parse SQL statements properly (handles BEGIN...END blocks in triggers)
     const statements = this.parseSQLStatements(schema);
@@ -405,6 +431,7 @@ export class N8NDocumentationMCPServer {
       }
     }
   }
+
 
   /**
    * Parse SQL statements from schema file, properly handling multi-line statements
